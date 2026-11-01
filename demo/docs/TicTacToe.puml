@@ -1,0 +1,60 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class TicTacToeConsole {
+    - board: Board
+    - player1: Player
+    - player2: Player
+    - currentPlayer: Player
+    - scanner: Scanner
+    + main(args: String[])
+    + startGame(): void
+    + switchTurn(): void
+    + checkGameOver(): boolean
+}
+
+class Board {
+    - grid: char[][]
+    + initialize(): void
+    + display(): void
+    + isValid(r: int, c: int): boolean
+    + place(r: int, c: int, m: char): boolean
+    + isFull(): boolean
+    + checkWin(): boolean
+}
+
+abstract class Player {
+    # marker: char
+    + Player(marker: char)
+    + getMarker(): char
+    + {abstract} makeMove(board: Board): void
+}
+
+class HumanPlayer {
+    - scanner: Scanner
+    + HumanPlayer(marker: char, scanner: Scanner)
+    + makeMove(board: Board): void
+}
+
+class CpuPlayer {
+    - random: Random
+    + CpuPlayer(marker: char)
+    + makeMove(board: Board): void
+}
+
+class Scanner {
+}
+
+TicTacToe "1" *-- "1" Board
+TicTacToe "1" *-- "2" Player
+TicTacToe "1" *-- "1" Scanner
+
+HumanPlayer --|> Player
+CpuPlayer --|> Player
+
+Player ..> Board : interacts with
+TicTacToe ..> HumanPlayer : injects scanner into
+HumanPlayer o-- "1" Scanner : uses
+
+@enduml
+

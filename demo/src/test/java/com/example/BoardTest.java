@@ -1,0 +1,72 @@
+package com.example;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+/** Unit tests for board state, move validation, and win detection. */
+class BoardTest {
+    private Board board;
+
+    /** Creates a fresh board before each test. */
+    @BeforeEach
+    void setUp() {
+        board = new Board();
+    }
+
+    /** Verifies that only empty, in-bounds cells accept valid player markers. */
+    @Test
+    void acceptsOnlyEmptyInBoundsCellsAndPlacesValidMarkers() {
+        assertTrue(board.isValid(0, 0));
+        assertFalse(board.isValid(-1, 0));
+        assertFalse(board.isValid(3, 0));
+        assertFalse(board.isValid(0, 3));
+        assertTrue(board.place(0, 0, 'X'));
+        assertFalse(board.isValid(0, 0));
+        assertFalse(board.place(0, 0, 'O'));
+        assertFalse(board.place(1, 1, 'Z'));
+        assertEquals('X', board.getCell(0, 0));
+    }
+
+    /** Verifies win detection for rows, columns, and both diagonals. */
+    @Test
+    void detectsWinsAcrossRowsColumnsAndBothDiagonals() {
+        assertPlacesAndWins(new int[][]{{0, 0}, {0, 1}, {0, 2}});
+        assertPlacesAndWins(new int[][]{{0, 1}, {1, 1}, {2, 1}});
+        assertPlacesAndWins(new int[][]{{0, 0}, {1, 1}, {2, 2}});
+        assertPlacesAndWins(new int[][]{{0, 2}, {1, 1}, {2, 0}});
+    }
+
+    /** Verifies a full board with no winning line is recognized as a draw state. */
+    @Test
+    void detectsNoWinAndFullBoardDraw() {
+        char[][] marks = {{'X', 'O', 'X'}, {'X', 'O', 'O'}, {'O', 'X', 'X'}};
+        for (int row = 0; row < 3; row++) {
+            for (int column = 0; column < 3; column++) {
+                assertTrue(board.place(row, column, marks[row][column]));
+            }
+        }
+        assertTrue(board.isFull());
+        assertFalse(board.checkWin());
+    }
+
+    /** Verifies that initialization clears all previously placed markers. */
+    @Test
+    void initializeClearsTheBoard() {
+        board.place(1, 1, 'O');
+        board.initialize();
+        assertTrue(board.isValid(1, 1));
+        assertFalse(board.isFull());
+        assertFalse(board.checkWin());
+    }
+
+    /** Places the supplied cells for X and verifies that they form a win. */
+    private void assertPlacesAndWins(int[][] cells) {
+        board.initialize();
+        for (int[] cell : cells) {
+            assertTrue(board.place(cell[0], cell[1], 'X'));
+        }
+        assertTrue(board.checkWin());
+    }
+}
