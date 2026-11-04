@@ -7,10 +7,17 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.Scanner;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /** Unit tests for human and CPU player move behavior. */
 class PlayerTest {
+    /** Ensures default name sequencing starts from a predictable value for each test. */
+    @BeforeEach
+    void resetDefaultPlayerNames() {
+        Player.resetDefaultNameCounters();
+    }
+
     /** Verifies a human can place a marker at valid coordinates. */
     @Test
     void humanCanPlaceAMoveFromSelectedCoordinates() {
@@ -67,8 +74,8 @@ class PlayerTest {
         HumanPlayer human = new HumanPlayer('X', new Scanner(""));
         CpuPlayer cpu = new CpuPlayer('O', new Random(1));
 
-        assertEquals("Player #1", human.getName());
-        assertEquals("CPU #1", cpu.getName());
+        assertEquals("Player 1", human.getName());
+        assertEquals("Player 1", cpu.getName());
 
         assertThrows(IllegalArgumentException.class, () -> human.setName(null));
         assertThrows(IllegalArgumentException.class, () -> human.setName("   "));
