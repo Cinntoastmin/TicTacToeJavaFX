@@ -78,6 +78,24 @@ class PlayerTest {
         assertThrows(IllegalArgumentException.class, () -> cpu.setName("\t\n  "));
     }
 
+    @Test
+    void DoTwoHumanPlayersHaveDifferentNames(){
+        HumanPlayer h1 = new HumanPlayer('X', new Scanner(""));
+        HumanPlayer h2 = new HumanPlayer('O', new Scanner(""));
+
+        assertEquals("Player 1", h1.getName());
+        assertEquals("Player 2", h2.getName());
+    }
+
+    @Test
+    void DoTwoCPUPlayersHaveDifferentNames(){
+        CpuPlayer c1 = new CpuPlayer('X');
+        CpuPlayer c2 = new CpuPlayer('O');
+
+        assertEquals("Player 1", c1.getName());
+        assertEquals("Player 2", c2.getName());
+    }
+
     /** Counts the occurrences of a marker on the supplied board. */
     private int countMarker(Board board, char marker) {
         int count = 0;
