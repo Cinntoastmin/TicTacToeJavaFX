@@ -7,10 +7,17 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.Scanner;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /** Unit tests for human and CPU player move behavior. */
 class PlayerTest {
+    /** Ensures default name sequencing starts from a predictable value for each test. */
+    @BeforeEach
+    void resetDefaultPlayerNames() {
+        Player.resetDefaultNameCounters();
+    }
+
     /** Verifies a human can place a marker at valid coordinates. */
     @Test
     void humanCanPlaceAMoveFromSelectedCoordinates() {
@@ -59,6 +66,41 @@ class PlayerTest {
             }
         }
         assertThrows(IllegalStateException.class, () -> cpu.makeMove(board));
+    }
+
+    /** Verifies default player names are assigned and invalid names are rejected. */
+    @Test
+    void defaultNamesAreAssignedAndNameValidationRejectsNullOrBlankValues() {
+        HumanPlayer human = new HumanPlayer('X', new Scanner(""));
+        CpuPlayer cpu = new CpuPlayer('O', new Random(1));
+
+        assertEquals("Player 1", human.getName());
+        assertEquals("Player 1", cpu.getName());
+
+        assertThrows(IllegalArgumentException.class, () -> human.setName(null));
+        assertThrows(IllegalArgumentException.class, () -> human.setName("   "));
+        assertThrows(IllegalArgumentException.class, () -> human.setName("\t\n "));
+        assertThrows(IllegalArgumentException.class, () -> cpu.setName(null));
+        assertThrows(IllegalArgumentException.class, () -> cpu.setName("   "));
+        assertThrows(IllegalArgumentException.class, () -> cpu.setName("\t\n  "));
+    }
+
+    @Test
+    void DoTwoHumanPlayersHaveDifferentNames(){
+        HumanPlayer h1 = new HumanPlayer('X', new Scanner(""));
+        HumanPlayer h2 = new HumanPlayer('O', new Scanner(""));
+
+        assertEquals("Player 1", h1.getName());
+        assertEquals("Player 2", h2.getName());
+    }
+
+    @Test
+    void DoTwoCPUPlayersHaveDifferentNames(){
+        CpuPlayer c1 = new CpuPlayer('X');
+        CpuPlayer c2 = new CpuPlayer('O');
+
+        assertEquals("Player 1", c1.getName());
+        assertEquals("Player 2", c2.getName());
     }
 
     /** Counts the occurrences of a marker on the supplied board. */

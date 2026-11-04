@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * 
- * A player that chooses randomly from the currently available cells. 
+ *
+ * A player that chooses randomly from the currently available cells.
  */
 public class CpuPlayer extends Player {
     private final Random random;
@@ -17,11 +17,6 @@ public class CpuPlayer extends Player {
      *
      * @param marker this player's marker
      * @throws IllegalArgumentException if {@code marker} is not {@code X} or {@code O}
-     */
-
-    /**
-     * Creates a CPU player using the specified marker
-     * @param marker this player's marker
      */
     public CpuPlayer(char marker) {
         this(marker, new Random());
@@ -34,12 +29,11 @@ public class CpuPlayer extends Player {
      * @param random generator used to select a move
      * @throws NullPointerException if {@code random} is null
      * @throws IllegalArgumentException if {@code marker} is not {@code X} or {@code O}
-     */     
+     */
     public CpuPlayer(char marker, Random random) {
         super(marker);
         this.random = Objects.requireNonNull(random, "random");
     }
-    
 
     /** Places this player's marker in a randomly selected empty cell. */
     @Override
