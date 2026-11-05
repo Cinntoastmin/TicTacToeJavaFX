@@ -58,6 +58,13 @@
     -fx-background-color: #1f2937;
 }
 
+.winning-cell {
+    -fx-background-color: #14532d;
+    -fx-border-color: #4ade80;
+    -fx-text-fill: #dcfce7;
+    -fx-effect: dropshadow(gaussian, rgba(74, 222, 128, 0.7), 16, 0.2, 0, 0);
+}
+
 Button {
     -fx-text-fill: #f9fafb;
 }

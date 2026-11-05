@@ -115,6 +115,7 @@ public class Main extends Application {
 
     /** Draws the current board state onto the buttons. */
     private void updateBoard() {
+        clearWinningCells();
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
                 Button button = buttons[row * 3 + column];
@@ -124,11 +125,26 @@ public class Main extends Application {
         }
     }
 
+    /** Clears any previous highlight from the board. */
+    private void clearWinningCells() {
+        for (Button button : buttons) {
+            button.getStyleClass().remove("winning-cell");
+        }
+    }
+
+    /** Highlights the winning line when a game ends. */
+    private void highlightWinningCells() {
+        for (int index : board.getWinningCells()) {
+            buttons[index].getStyleClass().add("winning-cell");
+        }
+    }
+
     /** Resets the board and UI for a new game. */
     private void resetGame() {
         board.initialize();
         gameOver = false;
         statusLabel.setText("Your turn");
+        clearWinningCells();
         updateBoard();
     }
 
@@ -136,5 +152,6 @@ public class Main extends Application {
     private void finishGame(String message) {
         gameOver = true;
         statusLabel.setText(message);
+        highlightWinningCells();
     }
 }

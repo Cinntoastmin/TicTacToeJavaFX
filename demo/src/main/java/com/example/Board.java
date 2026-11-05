@@ -102,14 +102,31 @@ public class Board {
      * @return {@code true} if a player has won
      */
     public boolean checkWin() {
+        return getWinningCells().length > 0;
+    }
+
+    /**
+     * Returns the three cell indexes that form the current winning line, if any.
+     *
+     * @return array of cell indexes for the winning line, or an empty array when no win exists
+     */
+    public int[] getWinningCells() {
         for (int index = 0; index < SIZE; index++) {
-            if (sameNonEmpty(grid[index][0], grid[index][1], grid[index][2])
-                    || sameNonEmpty(grid[0][index], grid[1][index], grid[2][index])) {
-                return true;
+            if (sameNonEmpty(grid[index][0], grid[index][1], grid[index][2])) {
+                return new int[] {index * 3, index * 3 + 1, index * 3 + 2};
+            }
+            if (sameNonEmpty(grid[0][index], grid[1][index], grid[2][index])) {
+                return new int[] {index, SIZE + index, (2 * SIZE) + index};
             }
         }
-        return sameNonEmpty(grid[0][0], grid[1][1], grid[2][2])
-                || sameNonEmpty(grid[0][2], grid[1][1], grid[2][0]);
+
+        if (sameNonEmpty(grid[0][0], grid[1][1], grid[2][2])) {
+            return new int[] {0, 4, 8};
+        }
+        if (sameNonEmpty(grid[0][2], grid[1][1], grid[2][0])) {
+            return new int[] {2, 4, 6};
+        }
+        return new int[0];
     }
 
     /**
