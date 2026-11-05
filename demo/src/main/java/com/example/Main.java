@@ -32,6 +32,7 @@ public class Main extends Application {
         grid.setVgap(10);
         grid.setPadding(new Insets(10));
         grid.setAlignment(Pos.CENTER);
+        grid.getStyleClass().add("board");
 
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
@@ -39,6 +40,7 @@ public class Main extends Application {
                 Button button = new Button(" ");
                 button.setPrefSize(100, 100);
                 button.setFont(Font.font(36));
+                button.getStyleClass().add("cell");
                 final int finalRow = row;
                 final int finalColumn = column;
                 button.setOnAction(event -> handleHumanMove(button, finalRow, finalColumn));
@@ -48,19 +50,25 @@ public class Main extends Application {
         }
 
         Button restartButton = new Button("Restart");
+        restartButton.getStyleClass().add("restart-button");
         restartButton.setOnAction(event -> resetGame());
 
         BorderPane root = new BorderPane();
+        root.getStyleClass().add("root");
         root.setCenter(grid);
         root.setTop(statusLabel);
         root.setBottom(restartButton);
+        statusLabel.getStyleClass().add("status");
         BorderPane.setAlignment(statusLabel, Pos.CENTER);
         BorderPane.setMargin(statusLabel, new Insets(10));
         BorderPane.setAlignment(restartButton, Pos.CENTER);
         BorderPane.setMargin(restartButton, new Insets(10));
 
+        Scene scene = new Scene(root, 350, 420);
+        scene.getStylesheets().add(getClass().getResource("/app.css").toExternalForm());
+
         primaryStage.setTitle("Tic-Tac-Toe");
-        primaryStage.setScene(new Scene(root, 350, 420));
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
