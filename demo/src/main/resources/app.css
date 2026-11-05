@@ -1,26 +1,10 @@
 .root {
-    -fx-background-color: linear-gradient(to bottom right, #101827, #182840 58%, #203957);
+    -fx-background-color: linear-gradient(to bottom, #0b1020, #111827 30%, #0f172a);
     -fx-font-family: "Avenir Next", "Helvetica Neue", sans-serif;
 }
 
-.content {
-    -fx-max-width: 460px;
-}
-
-.eyebrow {
-    -fx-text-fill: #83d6c5;
-    -fx-font-size: 11px;
-    -fx-font-weight: bold;
-}
-
-.title {
-    -fx-text-fill: #f4f7fb;
-    -fx-font-size: 42px;
-    -fx-font-weight: 800;
-}
-
 .status {
-    -fx-text-fill: #d7e3ef;
+    -fx-text-fill: #e5e7eb;
     -fx-font-size: 17px;
     -fx-font-weight: 600;
     -fx-padding: 2px 0 8px 0;
@@ -28,26 +12,29 @@
 
 .board {
     -fx-padding: 22px;
-    -fx-background-color: rgba(255, 255, 255, 0.055);
+    -fx-background-color: rgba(148, 163, 184, 0.08);
     -fx-background-radius: 24px;
-    -fx-border-color: rgba(255, 255, 255, 0.09);
+    -fx-border-color: rgba(148, 163, 184, 0.2);
     -fx-border-radius: 24px;
+    -fx-border-width: 1px;
 }
 
 .cell {
     -fx-min-width: 112px;
     -fx-min-height: 112px;
-    -fx-background-color: #f1f5f8;
+    -fx-background-color: #1f2937;
     -fx-background-radius: 17px;
-    -fx-text-fill: #1b2940;
+    -fx-text-fill: #f3f4f6;
     -fx-font-size: 52px;
     -fx-font-weight: 800;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.18), 14, 0.1, 0, 6);
+    -fx-border-color: rgba(148, 163, 184, 0.18);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.32), 12, 0.15, 0, 4);
 }
 
 .cell:hover:enabled {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #2b3748;
     -fx-translate-y: -2px;
 }
 
@@ -55,25 +42,12 @@
     -fx-opacity: 1;
 }
 
-.x-cell {
-    -fx-text-fill: #167c80;
-}
-
-.o-cell {
-    -fx-text-fill: #e27755;
-}
-
-.hint {
-    -fx-text-fill: #9eafc2;
-    -fx-font-size: 13px;
-}
-
 .restart-button {
-    -fx-background-color: transparent;
-    -fx-border-color: rgba(255, 255, 255, 0.24);
+    -fx-background-color: #111827;
+    -fx-border-color: rgba(148, 163, 184, 0.35);
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
-    -fx-text-fill: #e7eef6;
+    -fx-text-fill: #f9fafb;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 11px 22px;
@@ -81,5 +55,16 @@
 }
 
 .restart-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.09);
+    -fx-background-color: #1f2937;
+}
+
+.winning-cell {
+    -fx-background-color: #14532d;
+    -fx-border-color: #4ade80;
+    -fx-text-fill: #dcfce7;
+    -fx-effect: dropshadow(gaussian, rgba(74, 222, 128, 0.7), 16, 0.2, 0, 0);
+}
+
+Button {
+    -fx-text-fill: #f9fafb;
 }
